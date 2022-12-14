@@ -2,29 +2,50 @@ import { List, Date, ButtonArea, Button } from "./style";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Todolist = ({ isDone, index }) => {
-  const list = useSelector((state) => state.manageTodo.initialList);
+const Todolist = (value) => {
   const navigate = useNavigate();
+  const list = useSelector((state) => state.manageTodo.initialList);
 
   return (
     <>
-      {/* <h1>투두리스트</h1> */}
-      {list.map((item, index) => {
-        return (
-          <List
-            key={index}
-            onClick={() => {
-              navigate("/" + index);
-            }}
-          >
-            <Date>{item.date}</Date>
-            {item.todo}
-            <ButtonArea>
-              <Button>{item.isDone ? "cancel" : "done"}</Button>
-              <Button>delete</Button>
-            </ButtonArea>
-          </List>
-        );
+      {list.map((item, i) => {
+        if (!item.isDone) {
+          return (
+            <List
+              key={i}
+              onClick={() => {
+                navigate("/" + i);
+              }}
+            >
+              <Date>{item.date}</Date>
+              {item.todo}
+              <ButtonArea>
+                <Button>{item.isDone ? "cancel" : "done"}</Button>
+                <Button>delete</Button>
+              </ButtonArea>
+            </List>
+          );
+        }
+      })}
+
+      {list.map((item, i) => {
+        if (item.isDone) {
+          return (
+            <List
+              key={i}
+              onClick={() => {
+                navigate("/" + i);
+              }}
+            >
+              <Date>{item.date}</Date>
+              {item.todo}
+              <ButtonArea>
+                <Button>{item.isDone ? "cancel" : "done"}</Button>
+                <Button>delete</Button>
+              </ButtonArea>
+            </List>
+          );
+        }
       })}
     </>
   );

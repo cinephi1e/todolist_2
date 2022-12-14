@@ -15,7 +15,7 @@ const TodolistPages = () => {
       </Todolist>
 
       <Bottom>
-        <input type="checkbox" /> 완료
+        {list[i]["isDone"] === false ? "늦기 전에 완료해주세요!" : "완료"}
         <PrevBtn
           onClick={() => {
             navigate("/");

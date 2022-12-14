@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const list = useSelector((state) => state.manageTodo.initialList);
-  console.log(list);
   const dispatch = useDispatch();
 
   const [date, setDate] = useState("");
