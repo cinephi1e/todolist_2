@@ -33,6 +33,7 @@ const initialState = {
     { id: uuid(), date: "2022/12/07", todo: "리액트 과제", isDone: true },
     { id: uuid(), date: "2022/12/06", todo: "티켓팅", isDone: false },
     { id: uuid(), date: "2022/12/07", todo: "리액트 심화", isDone: false },
+    { id: uuid(), date: "2022/12/13", todo: "신한은행 문의", isDone: false },
   ],
 };
 

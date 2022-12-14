@@ -19,7 +19,7 @@ const Contents = ({ value }) => {
         .map((item, index) => {
           return <Todolist key={index} />;
         })}
-      <TodolistPages />
+      {/* <TodolistPages /> */}
     </Content>
   );
 };

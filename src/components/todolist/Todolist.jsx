@@ -8,6 +8,7 @@ const Todolist = ({ isDone, index }) => {
 
   return (
     <>
+      {/* <h1>투두리스트</h1> */}
       {list.map((item, index) => {
         return (
           <List
