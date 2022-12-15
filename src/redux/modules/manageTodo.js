@@ -3,26 +3,26 @@ import { v4 as uuid } from "uuid";
 // action value
 const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE_TODO";
-const TODO_BUTTON = "TODO_BUTTON";
+const UPDATE_TODO = "UPDATE_TODO";
 
 // action creator
-const addTodo = (payload) => {
+export const addTodo = (payload) => {
   return {
     type: ADD_TODO,
     payload,
   };
 };
 
-const deleteTodo = (payload) => {
+export const deleteTodo = (payload) => {
   return {
     type: DELETE_TODO,
     payload,
   };
 };
 
-const todoButton = (payload) => {
+export const todoButton = (payload) => {
   return {
-    type: TODO_BUTTON,
+    type: UPDATE_TODO,
     payload,
   };
 };
@@ -46,12 +46,11 @@ const manageTodo = (state = initialState, action) => {
         initialList: [...state.initialList, action.payload],
       };
     }
-    // case DELETE_TODO: {
-    //   return {
-    //     initialList: state.i
-    //   }
-    // }
-
+    case DELETE_TODO: {
+      return {
+        initialList: [action.payload],
+      };
+    }
     default:
       return state;
   }

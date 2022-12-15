@@ -9,6 +9,16 @@ const List = styled.div`
   }
 `;
 
+const DoneList = styled.div`
+  display: flex;
+  border-bottom: 1px dashed;
+  padding: 16px 6px 14px 10px;
+  text-decoration: line-through;
+  &:hover {
+    background: #eee;
+  }
+`;
+
 const Date = styled.span`
   font-weight: 600;
   margin-right: 7px;
@@ -27,4 +37,4 @@ const Button = styled.button`
   }
 `;
 
-export { List, Date, ButtonArea, Button };
+export { List, DoneList, Date, ButtonArea, Button };

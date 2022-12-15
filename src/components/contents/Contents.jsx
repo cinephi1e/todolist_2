@@ -9,7 +9,7 @@ const Content = styled.div`
 const Contents = () => {
   const list = useSelector((state) => state.manageTodo.initialList);
   const listState = list.filter((item) => item.isDone === false);
-  console.log("listState", listState);
+  // console.log("listState", listState);
 
   return (
     <Content>

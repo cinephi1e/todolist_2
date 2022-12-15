@@ -1,26 +1,33 @@
 import { Content, Title, Input, InputDate, InputTodo, InputBtn } from "./style";
 import { v4 as uuid } from "uuid";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addTodo } from "../../redux/modules/manageTodo";
 
 const Header = () => {
   const list = useSelector((state) => state.manageTodo.initialList);
   const dispatch = useDispatch();
 
-  const [date, setDate] = useState("");
-  const [todo, setTodo] = useState("");
+  const inputDate = useRef();
+  const inputTodo = useRef();
 
-  const onClickAdd = () => {
-    const newList = {
-      id: uuid(),
-      date,
-      todo,
-      isDone: false,
-    };
-    if (date && todo) {
-      setDate("");
-      setTodo("");
-    } else {
+  // const [date, setDate] = useState("");
+  // const [todo, setTodo] = useState("");
+
+  const addBtn = () => {
+    if (inputDate && inputTodo) {
+      // setDate("");
+      // setTodo("");
+      dispatch(
+        addTodo({
+          id: uuid(),
+          date: inputDate.current.value,
+          todo: inputTodo.current.value,
+          isDone: false,
+        })
+      );
+    }
+    if (inputDate === null) {
       alert("빠트린 내용이 없나 확인해보세요.");
     }
   };
@@ -28,15 +35,9 @@ const Header = () => {
     <Content>
       <Title>Todolist</Title>
       <Input>
-        <InputDate />
-        <InputTodo />
-        <InputBtn
-          onClick={() => {
-            dispatch({ type: "ADD_TODO" });
-          }}
-        >
-          add
-        </InputBtn>
+        <InputDate placeholder="date" ref={inputDate} />
+        <InputTodo placeholder="Do your job!" ref={inputTodo} />
+        <InputBtn onClick={addBtn}>add</InputBtn>
       </Input>
     </Content>
   );
