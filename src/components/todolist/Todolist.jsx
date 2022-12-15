@@ -7,25 +7,18 @@ import { useRef } from "react";
 const Todolist = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const thisTodo = useRef();
   const list = useSelector((state) => state.manageTodo.initialList);
 
-  const delBtn = (event) => {
-    const { value } = event.target;
-    console.log(value);
+  // 투두리스트 delete 버튼
+  const delBtn = (event, id) => {
+    // const choice = list.filter((todo) => todo.id !== thisTodo);
+    // console.log(id);
     event.stopPropagation();
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      return dispatch(deleteTodo(list.filter(event)));
+      // return dispatch(deleteTodo(list.filter((todo) => todo.id !== id)));
     }
   };
-
-  // const updateBtn = (id) => {
-  //   id.stopPropagation();
-  //   dispatch(
-  //     updateTodo({
-  //       isDone: true,
-  //     })
-  //   );
-  // };
 
   return (
     <>
@@ -34,8 +27,7 @@ const Todolist = () => {
           return (
             <List
               key={i}
-              id={item.id}
-              onClick={(event) => {
+              onClick={() => {
                 navigate("/" + i);
               }}
             >
@@ -43,7 +35,13 @@ const Todolist = () => {
               {item.todo}
               <ButtonArea>
                 <Button>{item.isDone ? "cancel" : "done"}</Button>
-                <Button onClick={delBtn}>delete</Button>
+                <Button
+                  ref={thisTodo}
+                  id={console.log(item.id)}
+                  onClick={delBtn}
+                >
+                  delete
+                </Button>
               </ButtonArea>
             </List>
           );
@@ -55,7 +53,6 @@ const Todolist = () => {
           return (
             <DoneList
               key={i}
-              id={item.id}
               onClick={() => {
                 navigate("/" + i);
               }}
@@ -64,7 +61,9 @@ const Todolist = () => {
               {item.todo}
               <ButtonArea>
                 <Button>{item.isDone ? "cancel" : "done"}</Button>
-                <Button onClick={delBtn}>delete</Button>
+                <Button ref={thisTodo} onClick={delBtn}>
+                  delete
+                </Button>
               </ButtonArea>
             </DoneList>
           );
