@@ -20,7 +20,7 @@ export const deleteTodo = (payload) => {
   };
 };
 
-export const todoButton = (payload) => {
+export const updateTodo = (payload) => {
   return {
     type: UPDATE_TODO,
     payload,
@@ -48,9 +48,24 @@ const manageTodo = (state = initialState, action) => {
     }
     case DELETE_TODO: {
       return {
-        initialList: [action.payload],
+        initialList: [
+          ...state.initialList.filter((todo) => todo["id"] !== action.payload),
+        ],
       };
     }
+    // case UPDATE_TODO: {
+    //   return {
+    //     initialList: [
+    //       state.initialList.map((todo) => {
+    //         if (todo === todo["id"]) {
+    //           return { ...todo, isDone: true };
+    //         } else {
+    //           return { ...todo };
+    //         }
+    //       }),
+    //     ],
+    //   };
+    // }
     default:
       return state;
   }

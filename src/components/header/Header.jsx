@@ -5,19 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTodo } from "../../redux/modules/manageTodo";
 
 const Header = () => {
-  const list = useSelector((state) => state.manageTodo.initialList);
   const dispatch = useDispatch();
 
   const inputDate = useRef();
   const inputTodo = useRef();
 
-  // const [date, setDate] = useState("");
-  // const [todo, setTodo] = useState("");
+  const [date, setDate] = useState("");
+  const [todo, setTodo] = useState("");
 
+  // 투두리스트 추가
   const addBtn = () => {
-    if (inputDate && inputTodo) {
-      // setDate("");
-      // setTodo("");
+    if (!date || !todo) {
+      return alert("빠트린 내용이 없나 확인해보세요.");
+    } else if (inputDate && inputTodo) {
+      setDate("");
+      setTodo("");
       dispatch(
         addTodo({
           id: uuid(),
@@ -27,16 +29,24 @@ const Header = () => {
         })
       );
     }
-    if (inputDate === null) {
-      alert("빠트린 내용이 없나 확인해보세요.");
-    }
   };
+
   return (
     <Content>
       <Title>Todolist</Title>
       <Input>
-        <InputDate placeholder="date" ref={inputDate} />
-        <InputTodo placeholder="Do your job!" ref={inputTodo} />
+        <InputDate
+          placeholder="date"
+          ref={inputDate}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+        <InputTodo
+          placeholder="Do your job!"
+          ref={inputTodo}
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
+        />
         <InputBtn onClick={addBtn}>add</InputBtn>
       </Input>
     </Content>

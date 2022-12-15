@@ -1,27 +1,31 @@
 import { List, DoneList, Date, ButtonArea, Button } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteTodo } from "../../redux/modules/manageTodo";
+import { deleteTodo, updateTodo } from "../../redux/modules/manageTodo";
+import { useRef } from "react";
 
 const Todolist = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const list = useSelector((state) => state.manageTodo.initialList);
 
-  const delBtn = (id) => {
-    id.stopPropagation();
-    const newList = list.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          isDone: true,
-        };
-      } else {
-        return { ...todo };
-      }
-    });
-    dispatch(deleteTodo({ newList }));
+  const delBtn = (event) => {
+    const { value } = event.target;
+    console.log(value);
+    event.stopPropagation();
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      return dispatch(deleteTodo(list.filter(event)));
+    }
   };
+
+  // const updateBtn = (id) => {
+  //   id.stopPropagation();
+  //   dispatch(
+  //     updateTodo({
+  //       isDone: true,
+  //     })
+  //   );
+  // };
 
   return (
     <>
@@ -30,6 +34,7 @@ const Todolist = () => {
           return (
             <List
               key={i}
+              id={item.id}
               onClick={(event) => {
                 navigate("/" + i);
               }}
@@ -50,6 +55,7 @@ const Todolist = () => {
           return (
             <DoneList
               key={i}
+              id={item.id}
               onClick={() => {
                 navigate("/" + i);
               }}
