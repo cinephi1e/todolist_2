@@ -46,11 +46,10 @@ const manageTodo = (state = initialState, action) => {
       };
     }
     case DELETE_TODO: {
-      console.log(action.id);
       return {
-        initialList: [
-          state.initialList.filter((todo) => todo["id"] !== action.id),
-        ],
+        initialList: state.initialList.filter(
+          (todo) => todo["id"] !== action.id
+        ),
       };
     }
 
