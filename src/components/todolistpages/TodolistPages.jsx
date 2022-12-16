@@ -5,8 +5,6 @@ const TodolistPages = () => {
   const list = useSelector((state) => state.manageTodo.initialList);
   const i = Object.values(useParams());
   const navigate = useNavigate();
-  console.log(useParams());
-  console.log(list);
 
   return (
     <Content>
@@ -23,7 +21,7 @@ const TodolistPages = () => {
             navigate("/");
           }}
         >
-          이전페이지
+          back
         </PrevBtn>
       </Bottom>
     </Content>

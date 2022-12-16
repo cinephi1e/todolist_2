@@ -35,6 +35,7 @@ const PrevBtn = styled.div`
   margin-left: auto;
   border: none;
   background: none;
+  cursor: pointer;
 `;
 
 export { Content, Todolist, Date, Todo, Bottom, Id, PrevBtn };

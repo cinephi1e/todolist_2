@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Main = styled.div`
-  width: 600px;
+  width: 800px;
   min-height: 800px;
   padding: 10px 50px 20px 50px;
   margin: 50px auto;

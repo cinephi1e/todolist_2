@@ -30,10 +30,10 @@ export const updateTodo = (id) => {
 // initail state
 const initialState = {
   initialList: [
-    { id: uuid(), date: "2022/12/07", todo: "리액트 과제", isDone: true },
-    { id: uuid(), date: "2022/12/06", todo: "티켓팅", isDone: false },
-    { id: uuid(), date: "2022/12/07", todo: "리액트 심화", isDone: false },
-    { id: uuid(), date: "2022/12/13", todo: "신한은행 문의", isDone: false },
+    { id: uuid(), date: "2022/12/15", todo: "후발대 과제", isDone: true },
+    { id: uuid(), date: "2022/12/16", todo: "안과 방문", isDone: false },
+    { id: uuid(), date: "2022/12/16", todo: "리액트 심화 과제", isDone: true },
+    { id: uuid(), date: "2022/12/16", todo: "신한은행 문의", isDone: false },
   ],
 };
 
