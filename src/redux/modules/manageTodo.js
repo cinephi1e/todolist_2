@@ -53,6 +53,21 @@ const manageTodo = (state = initialState, action) => {
       };
     }
 
+    case UPDATE_TODO: {
+      return {
+        initialList: state.initialList.map((todo) => {
+          if (todo.id === action.id) {
+            return {
+              ...todo,
+              isDone: !todo.isDone,
+            };
+          } else {
+            return todo;
+          }
+        }),
+      };
+    }
+
     default:
       return state;
   }

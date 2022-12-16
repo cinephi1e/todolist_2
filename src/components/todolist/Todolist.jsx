@@ -16,16 +16,29 @@ const Todolist = () => {
     }
   };
 
+  // done/cancel 버튼
+  const updateBtn = (event, id) => {
+    event.stopPropagation();
+    dispatch(updateTodo(id));
+  };
+
   return (
     <>
       {list.map((item, i) => {
         if (!item.isDone) {
           return (
-            <List key={item.id}>
+            <List
+              key={item.id}
+              onClick={() => {
+                navigate("/" + i);
+              }}
+            >
               <Date>{item.date}</Date>
               {item.todo}
               <ButtonArea>
-                <Button>done</Button>
+                <Button onClick={(event) => updateBtn(event, item.id)}>
+                  done
+                </Button>
                 <Button onClick={(event) => delBtn(event, item.id)}>
                   delete
                 </Button>
@@ -47,7 +60,9 @@ const Todolist = () => {
               <Date>{item.date}</Date>
               {item.todo}
               <ButtonArea>
-                <Button>cancel</Button>
+                <Button onClick={(event) => updateBtn(event, item.id)}>
+                  cancel
+                </Button>
                 <Button onClick={(event) => delBtn(event, item.id)}>
                   delete
                 </Button>
