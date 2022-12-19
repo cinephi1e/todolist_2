@@ -11,7 +11,7 @@ const Header = () => {
   const focusDate = useRef();
   const focusTodo = useRef();
 
-  // 인풋 초기화
+  // 인풋 지역상태 관리
   const [date, setDate] = useState("");
   const [todo, setTodo] = useState("");
 

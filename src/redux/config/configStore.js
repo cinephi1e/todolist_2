@@ -1,10 +1,8 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
 import manageTodo from "../modules/manageTodo";
+import { configureStore } from "@reduxjs/toolkit";
 
-const rootReducer = combineReducers({
-  manageTodo,
+const store = configureStore({
+  reducer: { manageTodo },
 });
-const store = createStore(rootReducer);
 
 export default store;

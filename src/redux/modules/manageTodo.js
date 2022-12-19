@@ -1,31 +1,5 @@
 import { v4 as uuid } from "uuid";
-
-// action value
-const ADD_TODO = "ADD_TODO";
-const DELETE_TODO = "DELETE_TODO";
-const UPDATE_TODO = "UPDATE_TODO";
-
-// action creator
-export const addTodo = (newTodo) => {
-  return {
-    type: ADD_TODO,
-    newTodo,
-  };
-};
-
-export const deleteTodo = (id) => {
-  return {
-    type: DELETE_TODO,
-    id,
-  };
-};
-
-export const updateTodo = (id) => {
-  return {
-    type: UPDATE_TODO,
-    id,
-  };
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 // initail state
 const initialState = {
@@ -37,40 +11,35 @@ const initialState = {
   ],
 };
 
-// reducer
-const manageTodo = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TODO: {
-      return {
-        initialList: [...state.initialList, action.newTodo],
-      };
-    }
-    case DELETE_TODO: {
-      return {
-        initialList: state.initialList.filter(
-          (todo) => todo["id"] !== action.id
-        ),
-      };
-    }
+const manageTodo = createSlice({
+  name: "manageTodo",
+  initialState,
+  reducers: {
+    addTodo: (state, action) => {
+      console.log(action.payload);
+      state.initialList = [...state.initialList, action.payload];
+    },
+    deleteTodo: (state, action) => {
+      console.log(action.payload);
+      state.initialList = state.initialList.filter(
+        (todo) => todo["id"] !== action.payload
+      );
+    },
+    updateTodo: (state, action) => {
+      console.log(action.payload);
+      state.initialList = state.initialList.map((todo) => {
+        if (todo.id === action.payload) {
+          return {
+            ...todo,
+            isDone: !todo.isDone,
+          };
+        } else {
+          return todo;
+        }
+      });
+    },
+  },
+});
 
-    case UPDATE_TODO: {
-      return {
-        initialList: state.initialList.map((todo) => {
-          if (todo.id === action.id) {
-            return {
-              ...todo,
-              isDone: !todo.isDone,
-            };
-          } else {
-            return todo;
-          }
-        }),
-      };
-    }
-
-    default:
-      return state;
-  }
-};
-
-export default manageTodo;
+export const { addTodo, deleteTodo, updateTodo } = manageTodo.actions;
+export default manageTodo.reducer;

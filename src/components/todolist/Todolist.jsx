@@ -7,6 +7,7 @@ const Todolist = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const list = useSelector((state) => state.manageTodo.initialList);
+  console.log(list);
 
   // delete 버튼
   const delBtn = (event, id) => {
