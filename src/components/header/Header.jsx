@@ -1,8 +1,8 @@
 import { Content, Title, Input, InputDate, InputTodo, InputBtn } from "./style";
 import { v4 as uuid } from "uuid";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../redux/modules/manageTodo";
+import { __addTodo } from "../../redux/modules/manageTodo";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Header = () => {
       setDate("");
       setTodo("");
       dispatch(
-        addTodo({
+        __addTodo({
           id: uuid(),
           date,
           todo,

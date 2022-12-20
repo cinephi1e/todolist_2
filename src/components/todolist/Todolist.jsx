@@ -1,13 +1,26 @@
 import { List, DoneList, Date, ButtonArea, Button } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteTodo, updateTodo } from "../../redux/modules/manageTodo";
+import {
+  deleteTodo,
+  updateTodo,
+  __getTodos,
+} from "../../redux/modules/manageTodo";
+import axios from "axios";
+import { useEffect } from "react";
 
 const Todolist = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const list = useSelector((state) => state.manageTodo.initialList);
-  console.log(list);
+  const { isLoading, error, initialList } = useSelector(
+    (state) => state.manageTodo
+  );
+
+  // axios
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
 
   // delete 버튼
   const delBtn = (event, id) => {
@@ -23,9 +36,16 @@ const Todolist = () => {
     dispatch(updateTodo(id));
   };
 
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+  if (error) {
+    return <>{error.message}</>;
+  }
+
   return (
     <>
-      {list.map((item, i) => {
+      {initialList.map((item, i) => {
         if (!item.isDone) {
           return (
             <List
@@ -49,7 +69,7 @@ const Todolist = () => {
         }
       })}
 
-      {list.map((item, i) => {
+      {initialList.map((item, i) => {
         if (item.isDone) {
           return (
             <DoneList
