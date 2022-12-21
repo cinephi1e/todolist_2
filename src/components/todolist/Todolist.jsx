@@ -2,7 +2,6 @@ import { List, Done, Date, ButtonArea, Button } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
 import {
   getTodos,
   deleteTodo,
@@ -45,14 +44,14 @@ const Todolist = ({ isActive }) => {
     <>
       {initialList
         .filter((item) => item.isDone === !isActive)
-        .map((item, i) => {
+        .map((item) => {
           return (
             <List
               key={item.id}
               todo={item}
               isActive={isActive}
               onClick={() => {
-                navigate("/" + i);
+                navigate(`/${item.id}`);
               }}
             >
               {isActive === true ? (
