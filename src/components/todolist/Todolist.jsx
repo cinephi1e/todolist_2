@@ -1,14 +1,15 @@
-import { List, DoneList, Date, ButtonArea, Button } from "./style";
+import { List, Done, Date, ButtonArea, Button } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteTodo,
-  updateTodo,
-  __getTodos,
-} from "../../redux/modules/manageTodo";
 import { useEffect } from "react";
 
-const Todolist = () => {
+import {
+  getTodos,
+  deleteTodo,
+  updateTodo,
+} from "../../redux/modules/manageTodo";
+
+const Todolist = ({ isActive }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, error, initialList } = useSelector(
@@ -16,7 +17,7 @@ const Todolist = () => {
   );
 
   useEffect(() => {
-    dispatch(__getTodos());
+    dispatch(getTodos());
   }, [dispatch]);
 
   // delete 버튼
@@ -42,20 +43,32 @@ const Todolist = () => {
 
   return (
     <>
-      {initialList.map((item, i) => {
-        if (!item.isDone) {
+      {initialList
+        .filter((item) => item.isDone === !isActive)
+        .map((item, i) => {
           return (
             <List
               key={item.id}
+              todo={item}
+              isActive={isActive}
               onClick={() => {
                 navigate("/" + i);
               }}
             >
-              <Date>{item.date}</Date>
-              {item.todo}
+              {isActive === true ? (
+                <>
+                  <Date>{item.date}</Date>
+                  {item.todo}
+                </>
+              ) : (
+                <Done>
+                  <Date>{item.date}</Date>
+                  {item.todo}
+                </Done>
+              )}
               <ButtonArea>
                 <Button onClick={(event) => updateBtn(event, item.id)}>
-                  done
+                  {isActive === true ? "done" : "cancel"}
                 </Button>
                 <Button onClick={(event) => delBtn(event, item.id)}>
                   delete
@@ -63,32 +76,7 @@ const Todolist = () => {
               </ButtonArea>
             </List>
           );
-        }
-      })}
-
-      {initialList.map((item, i) => {
-        if (item.isDone) {
-          return (
-            <DoneList
-              key={item.id}
-              onClick={() => {
-                navigate("/" + i);
-              }}
-            >
-              <Date>{item.date}</Date>
-              {item.todo}
-              <ButtonArea>
-                <Button onClick={(event) => updateBtn(event, item.id)}>
-                  cancel
-                </Button>
-                <Button onClick={(event) => delBtn(event, item.id)}>
-                  delete
-                </Button>
-              </ButtonArea>
-            </DoneList>
-          );
-        }
-      })}
+        })}
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -10,7 +9,7 @@ const initialState = {
   error: null,
 };
 
-export const __getTodos = createAsyncThunk(
+export const getTodos = createAsyncThunk(
   "getTodos",
   async (payload, thunkAPI) => {
     try {
@@ -22,15 +21,15 @@ export const __getTodos = createAsyncThunk(
   }
 );
 
-export const __addTodo = createAsyncThunk(
-  "addTodo", // action value
-  (payload, thunkAPI) => {
-    // 콜백함수(컴포넌트에서 보내는 payload, thunk에서 제공하는 여러 기능)
-    setTimeout(() => {
-      thunkAPI.dispatch(addTodo(payload));
-    }, 1000);
-  }
-);
+// export const __addTodo = createAsyncThunk(
+//   "addTodo", // action value
+//   (payload, thunkAPI) => {
+//     // 콜백함수(컴포넌트에서 보내는 payload, thunk에서 제공하는 여러 기능)
+//     setTimeout(() => {
+//       thunkAPI.dispatch(addTodo(payload));
+//     }, 1000);
+//   }
+// );
 
 const manageTodo = createSlice({
   name: "manageTodo",
@@ -62,14 +61,14 @@ const manageTodo = createSlice({
   },
 
   extraReducers: {
-    [__getTodos.pending]: (state) => {
+    [getTodos.pending]: (state) => {
       state.isLoading = true;
     },
-    [__getTodos.fulfilled]: (state, action) => {
+    [getTodos.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.initialList = action.payload;
     },
-    [__getTodos.rejected]: (state, action) => {
+    [getTodos.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

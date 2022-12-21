@@ -5,12 +5,13 @@ const Content = styled.div`
   min-height: 700px;
 `;
 
-const Contents = () => {
+const Main = () => {
   return (
     <Content>
-      <Todolist />
+      <Todolist isActive={true} />
+      <Todolist isActive={false} />
     </Content>
   );
 };
 
-export default Contents;
+export default Main;

@@ -10,14 +10,10 @@ const List = styled.div`
   }
 `;
 
-const DoneList = styled.div`
-  display: flex;
-  border-bottom: 1px dashed;
-  padding: 16px 6px 14px 10px;
+const Done = styled.div`
   text-decoration: line-through;
-  &:hover {
-    background: #eee;
-  }
+  text-decoration-color: red;
+  text-decoration-thickness: 0.15rem;
 `;
 
 const Date = styled.span`
@@ -38,4 +34,4 @@ const Button = styled.button`
   }
 `;
 
-export { List, DoneList, Date, ButtonArea, Button };
+export { List, Done, Date, ButtonArea, Button };
