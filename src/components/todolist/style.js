@@ -4,6 +4,7 @@ const List = styled.div`
   display: flex;
   border-bottom: 1px dashed;
   padding: 16px 6px 14px 10px;
+  cursor: pointer;
   &:hover {
     background: #eee;
   }

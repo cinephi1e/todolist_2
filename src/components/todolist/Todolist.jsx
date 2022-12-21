@@ -6,18 +6,15 @@ import {
   updateTodo,
   __getTodos,
 } from "../../redux/modules/manageTodo";
-import axios from "axios";
 import { useEffect } from "react";
 
 const Todolist = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.manageTodo.initialList);
   const { isLoading, error, initialList } = useSelector(
     (state) => state.manageTodo
   );
 
-  // axios
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
