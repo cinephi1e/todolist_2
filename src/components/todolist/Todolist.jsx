@@ -31,6 +31,7 @@ const Todolist = ({ isActive }) => {
   const updateBtn = (event, id) => {
     event.stopPropagation();
     dispatch(updateTodo(id));
+    console.log("클릭");
   };
 
   if (isLoading) {

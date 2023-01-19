@@ -45,7 +45,8 @@ export const updateTodo = createAsyncThunk(
           };
         }
       });
-      await axios.patch(`http://localhost:3001/todos/${payload}`, target[0]);
+      const i = target.findIndex((item) => item !== undefined);
+      await axios.patch(`http://localhost:3001/todos/${payload}`, target[i]);
       const result = await axios.get(`http://localhost:3001/todos`);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
