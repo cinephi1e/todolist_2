@@ -13,54 +13,66 @@ export const getTodos = createAsyncThunk(
   "getTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/todos");
-      return thunkAPI.fulfillWithValue(data.data);
+      const response = await axios.get("http://localhost:3001/todos");
+      return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-// export const __addTodo = createAsyncThunk(
-//   "addTodo", // action value
-//   (payload, thunkAPI) => {
-//     // 콜백함수(컴포넌트에서 보내는 payload, thunk에서 제공하는 여러 기능)
-//     setTimeout(() => {
-//       thunkAPI.dispatch(addTodo(payload));
-//     }, 1000);
-//   }
-// );
+export const addTodo = createAsyncThunk(
+  "addTodo",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.post("http://localhost:3001/todos", payload);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const updateTodo = createAsyncThunk(
+  "updateTodo",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/todos`);
+      const target = response.data.map((item) => {
+        if (item.id === payload) {
+          return {
+            isDone: !item.isDone,
+          };
+        }
+      });
+      await axios.patch(`http://localhost:3001/todos/${payload}`, target[0]);
+      const result = await axios.get(`http://localhost:3001/todos`);
+      return thunkAPI.fulfillWithValue(result.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteTodo = createAsyncThunk(
+  "deleteTodo",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/todos/${payload}`, payload);
+      const response = await axios.get("http://localhost:3001/todos");
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const manageTodo = createSlice({
   name: "manageTodo",
   initialState,
-  reducers: {
-    addTodo: (state, action) => {
-      console.log(action.payload);
-      state.initialList = [...state.initialList, action.payload];
-    },
-    deleteTodo: (state, action) => {
-      console.log(action.payload);
-      state.initialList = state.initialList.filter(
-        (todo) => todo["id"] !== action.payload
-      );
-    },
-    updateTodo: (state, action) => {
-      console.log(action.payload);
-      state.initialList = state.initialList.map((todo) => {
-        if (todo.id === action.payload) {
-          return {
-            ...todo,
-            isDone: !todo.isDone,
-          };
-        } else {
-          return todo;
-        }
-      });
-    },
-  },
-
+  reducers: {},
   extraReducers: {
+    // 조회
     [getTodos.pending]: (state) => {
       state.isLoading = true;
     },
@@ -72,8 +84,43 @@ const manageTodo = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    // 추가
+    [addTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [addTodo.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.initialList = [...state.initialList, action.payload];
+    },
+    [addTodo.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // 취소/완료
+    [updateTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateTodo.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.initialList = action.payload;
+    },
+    [updateTodo.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // 삭제
+    [deleteTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteTodo.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.initialList = action.payload;
+    },
+    [deleteTodo.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { addTodo, deleteTodo, updateTodo } = manageTodo.actions;
 export default manageTodo.reducer;

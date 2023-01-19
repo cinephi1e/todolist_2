@@ -4,6 +4,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import Main from "../pages/Main";
 import Detail from "../pages/Detail";
+
 const Router = () => {
   return (
     <BrowserRouter>

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {
   getTodos,
-  deleteTodo,
   updateTodo,
+  deleteTodo,
 } from "../../redux/modules/manageTodo";
 
 const Todolist = ({ isActive }) => {
@@ -17,7 +17,7 @@ const Todolist = ({ isActive }) => {
 
   useEffect(() => {
     dispatch(getTodos());
-  }, [dispatch]);
+  }, []);
 
   // delete 버튼
   const delBtn = (event, id) => {
@@ -49,7 +49,6 @@ const Todolist = ({ isActive }) => {
             <List
               key={item.id}
               todo={item}
-              isActive={isActive}
               onClick={() => {
                 navigate(`/${item.id}`);
               }}

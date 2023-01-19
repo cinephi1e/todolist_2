@@ -7,19 +7,19 @@ const TodolistPages = () => {
   const navigate = useNavigate();
 
   const { initialList } = useSelector((state) => state.manageTodo);
-  const filteredTodos = initialList.filter((item) => item.id === params.id);
-  const todo = filteredTodos[0];
+  const filteredList = initialList.filter((item) => item.id === params.id);
+  const item = filteredList[0];
 
   return (
     <Content>
       <Todolist>
-        <Id>ID: {todo.id.slice(0, 8)}</Id>
-        <Date>{todo.date}</Date>
-        <Todo>{todo.todo}</Todo>
+        <Id>ID: {item.id.slice(0, 8)}</Id>
+        <Date>{item.date}</Date>
+        <Todo>{item.todo}</Todo>
       </Todolist>
 
       <Bottom>
-        {todo.isDone === false ? "늦기 전에 완료해주세요." : "완료"}
+        {item.isDone === false ? "늦기 전에 완료해주세요." : "완료"}
         <PrevBtn
           onClick={() => {
             navigate("/");

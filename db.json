@@ -1,28 +1,16 @@
 {
   "todos": [
     {
-      "date": "2022/12/17",
-      "todo": "<아바타: 물의 길> 관람",
-      "isDone": true,
-      "id": "7721b587-0996-4a95-a5fb-9d37a055b549"
+      "id": "5e60a243-fbd7-4ea9-9842-b2990aaefb01",
+      "date": "2023. 1. 19.",
+      "todo": "타입스크립트",
+      "isDone": false
     },
     {
-      "date": "2022/12/20",
-      "todo": "리액트 심화",
-      "isDone": false,
-      "id": "b6824cc5-ca9a-4e95-a507-9b7641eca874"
-    },
-    {
-      "date": "2022/12/19",
-      "todo": "자바스크립트 학습",
-      "isDone": false,
-      "id": "7030a0b1-ac2e-47d2-9fce-a2638e80ea51"
-    },
-    {
-      "date": "2022/12/20",
-      "todo": "빨래",
-      "isDone": false,
-      "id": "e383d272-fe14-434b-b245-8e241a9b5cfd"
+      "id": "b8d3c857-8b80-4c5e-8052-526af2945674",
+      "date": "2023. 1. 19.",
+      "todo": "투두리스트 리팩토링",
+      "isDone": false
     }
   ]
 }
